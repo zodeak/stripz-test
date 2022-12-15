@@ -362,7 +362,7 @@ func (ob *OrderBook) matchMarketOrder(order *Order) (Transaction, error) {
 			return newTransaction(nil, func() {}), nil
 		}
 
-		doneOrders, amountLeft, finalizer := ob.sell.matchMinPrice(order, &order.Price)
+		doneOrders, amountLeft, finalizer := ob.sell.matchMinPrice(order, nil)
 		if amountLeft.GreaterThan(decimal.Zero) {
 			panic("market volume assert")
 		}
@@ -374,7 +374,7 @@ func (ob *OrderBook) matchMarketOrder(order *Order) (Transaction, error) {
 		return newTransaction(nil, func() {}), nil
 	}
 
-	doneOrders, amountLeft, finalizer := ob.buy.matchMaxPrice(order, &order.Price)
+	doneOrders, amountLeft, finalizer := ob.buy.matchMaxPrice(order, nil)
 	if amountLeft.GreaterThan(decimal.Zero) {
 		panic("market volume assert")
 	}
